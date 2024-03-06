@@ -8,8 +8,7 @@ import java.util.List;
 
 public interface GreetingService {
     Mono<Greetings> saveGreeting(Greetings greeting);
-
     Flux<Greetings> getGreeting();
     Mono<Greetings> getGreetingById(long id);
-    Mono<Greetings> deleteGreetingById(long id);
+    Mono<Boolean> deleteGreetingById(long id);
 }

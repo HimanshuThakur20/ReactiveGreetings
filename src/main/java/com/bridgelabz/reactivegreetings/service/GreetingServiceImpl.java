@@ -34,7 +34,13 @@ public class GreetingServiceImpl implements GreetingService{
     }
 
     @Override
-    public Mono<Greetings> deleteGreetingById(long id) {
-        return greetingsRepository.findById((int) id).flatMap(greetings -> greetingsRepository.delete(greetings).then(Mono.just(greetings)));
+    public Mono<Boolean> deleteGreetingById(long id) {
+        return greetingsRepository.findById((int) id)
+                .flatMap(greetings -> {
+                    // Record exists, delete it and return true
+                    return greetingsRepository.delete(greetings)
+                            .then(Mono.just(true));
+                })
+                .switchIfEmpty(Mono.just(false));
     }
 }
